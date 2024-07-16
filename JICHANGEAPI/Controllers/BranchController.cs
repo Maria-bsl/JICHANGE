@@ -11,6 +11,7 @@ using System.Web.Http.Cors;
 
 namespace JichangeApi.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class BranchController : ApiController
     {
         [HttpPost]
@@ -26,7 +27,7 @@ namespace JichangeApi.Controllers
                 }
                 else
                 {
-                    return Request.CreateResponse(new { response = new List<BranchM>(), message = new List<string>() });
+                    return Request.CreateResponse(new { response = new List<BranchM>(), message = new List<string> { "Failed to retrieve branch list" } });
                 }
             }
             catch (Exception ex)
@@ -53,7 +54,7 @@ namespace JichangeApi.Controllers
                         var existsBranch = branch.ValidateBranch(branch.Name);
                         if (existsBranch)
                         {
-                            return Request.CreateResponse(new { response = 0, message = new List<string> { branch.Name + " already exists." } });
+                            return Request.CreateResponse(new { response = 0, message = new List<string> { "Already exists." } });
                         }
                         var addedBranch = branch.AddBranch(branch);
                         if (addedBranch > 0)

@@ -22,11 +22,11 @@ namespace JichangeApi.Controllers
             var result = country.GETcountries();
             if (result != null)
             {
-                return Request.CreateResponse(new { response = result, message = "Success" });
+                return Request.CreateResponse(new { response = result, message = new List<string>() });
             }
             else
             {
-                return Request.CreateResponse(new { response = 0, message = "Failed" });
+                return Request.CreateResponse(new { response = new List<string>(), message = new List<string> { "Failed to retrieve countries list" } });
             }
         }
 
